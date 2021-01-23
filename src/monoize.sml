@@ -1414,12 +1414,12 @@ fun monoExp (env, st, fm) (all as (e, loc)) =
             in
                 (str ("UNIQUE ("
                       ^ String.concatWith ", "
-                                          (map (fn (x, t) => Settings.mangleSql (monoNameLc env x)
+                                          (rev (map (fn (x, t) => Settings.mangleSql (monoNameLc env x)
                                                              ^ (if #textKeysNeedLengths (Settings.currentDbms ())
                                                                    andalso isBlobby t then
                                                                     "(255)"
                                                                 else
-                                                                    "")) unique)
+                                                                    "")) unique))
                       ^ ")"),
                  fm)
             end
